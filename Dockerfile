@@ -3,7 +3,7 @@ SHELL ["/bin/bash", "-l", "-c"]
 ADD adoptium.repo /etc/yum.repos.d/
 ADD adoptium.gpg /etc/pki/rpm-gpg/
 RUN yum update -y && \
-    yum install -y centos-release-scl python3 openssl-devel patch temurin-21-jdk && \
+    yum install -y centos-release-scl git python3 openssl-devel patch temurin-21-jdk && \
     yum install -y devtoolset-9 && \
     yum clean all && \
     rm -rf /var/cache/yum
