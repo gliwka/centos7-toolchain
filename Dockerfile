@@ -38,3 +38,4 @@ RUN mkdir /clang && \
     make -j $(nproc) && \
     make install && \
     rm -rf /clang
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
