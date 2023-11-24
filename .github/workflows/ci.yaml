@@ -10,6 +10,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -57,6 +59,8 @@ jobs:
 
   merge:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     needs:
       - build
     steps:
