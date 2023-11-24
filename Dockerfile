@@ -1,5 +1,4 @@
 FROM docker.io/library/centos:7
-SHELL ["/bin/bash", "-l", "-c"]
 ADD adoptium.repo /etc/yum.repos.d/
 ADD adoptium.gpg /etc/pki/rpm-gpg/
 RUN yum update -y && \
@@ -8,6 +7,7 @@ RUN yum update -y && \
     yum clean all && \
     rm -rf /var/cache/yum
 COPY --chmod=0755 .bashrc /root
+ENV BASH_ENV=/root/.bashrc
 RUN mkdir /maven && \
     cd /maven && \
     curl -O -L https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz && \
@@ -38,4 +38,4 @@ RUN mkdir /clang && \
     make -j $(nproc) && \
     make install && \
     rm -rf /clang
-ENTRYPOINT ["/bin/bash", "-l", "-c"]
+ENTRYPOINT ["/bin/bash"]
