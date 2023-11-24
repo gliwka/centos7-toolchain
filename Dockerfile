@@ -7,7 +7,10 @@ RUN yum update -y && \
     yum clean all && \
     rm -rf /var/cache/yum
 COPY --chmod=0755 .bashrc /root
+# Need this because GitHub Actions chooses to override $HOME
 ENV BASH_ENV=/root/.bashrc
+# Make sure devtoolset gets used during build
+SHELL [ "/bin/bash", "-l", "-c" ]
 RUN mkdir /maven && \
     cd /maven && \
     curl -O -L https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz && \
@@ -38,4 +41,4 @@ RUN mkdir /clang && \
     make -j $(nproc) && \
     make install && \
     rm -rf /clang
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
